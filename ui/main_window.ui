@@ -15,29 +15,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0" colspan="3">
-     <widget class="QListWidget" name="downloadListWidget"/>
-    </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="outputDirLineEdit">
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Carpeta de Salida&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="placeholderText">
-       <string>Carpeta de Descarga</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="2">
-     <widget class="QPushButton" name="browsePushButton">
-      <property name="text">
-       <string>Seleccionar</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
@@ -55,6 +32,16 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0" colspan="4">
+     <widget class="QListWidget" name="downloadListWidget"/>
+    </item>
+    <item row="0" column="3">
+     <widget class="QPushButton" name="downloadPushButton">
+      <property name="text">
+       <string>Música MP3</string>
+      </property>
+     </widget>
+    </item>
     <item row="3" column="0">
      <widget class="QLabel" name="label_2">
       <property name="text">
@@ -62,10 +49,30 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="2">
-     <widget class="QPushButton" name="downloadPushButton">
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="outputDirLineEdit">
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Carpeta de Salida&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="text">
-       <string>Descargar</string>
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>Carpeta de Descarga</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="QPushButton" name="browsePushButton">
+      <property name="text">
+       <string>Seleccionar</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QPushButton" name="MP4Button">
+      <property name="text">
+       <string>Vídeo MP4</string>
       </property>
      </widget>
     </item>
@@ -77,7 +84,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

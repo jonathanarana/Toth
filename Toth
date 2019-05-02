@@ -115,12 +115,26 @@ class MainWindow(QtGui.QMainWindow):
             if url.startswith( 'http' ):
                 directory = str(self.ui.outputDirLineEdit.text())
                 item, download_item = self.add_download_item(url)
-                self.start_download(url, directory, download_item.onProgressChanged)
+                self.start_download(url, directory, download_item.onProgressChanged, 'mp3')
             else:
                 print('No es URL')
             self.ui.urlLineEdit.setText("")
         else:
             print('sin url')
+
+    def on_MP4Button_clicked(self):
+        url = str(self.ui.urlLineEdit.text())
+        if len(url)>0:
+            if url.startswith('http'):
+                directory = str(self.ui.outputDirLineEdit.text())
+                item, download_item = self.add_download_item(url)
+                self.start_download(url, directory, download_item.onProgressChanged, 'mp4')
+            else:
+                print('No es URL')
+            self.ui.urlLineEdit.setText("")
+        else:
+            print('sin url')
+
     def add_download_item(self, url):
         """
         Adds custom progress bar widget to the downloadListWidget.
@@ -135,26 +149,38 @@ class MainWindow(QtGui.QMainWindow):
         return (item, download_item)
 
 
-    def start_download(self, url, directory, onProgressChanged):
+    def start_download(self, url, directory, onProgressChanged, f):
+        print(f)
         """
         Starts the QYoutubeDL thread and hooks progress bar.
         """
         if directory:
             directory = os.path.abspath(directory) + '/'
-        ydl_options = {
-            'outtmpl': directory + u'%(title)s.%(ext)s',
-            'ignoreerrors':True,
-            'noplaylist':True,
-            'nooverwrites':True,
-            'writethumbnail':True,
-            #'restrictfilenames':True,
-            'format': 'bestaudio/best',
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '192',
-            }],
-        }
+        if f == 'mp3':
+            ydl_options = {
+                'outtmpl': directory + u'%(title)s.%(ext)s',
+                'ignoreerrors':True,
+                'noplaylist':True,
+                'nooverwrites':True,
+                'writethumbnail':True,
+                #'restrictfilenames':True,
+                'format': 'bestaudio/best',
+                'postprocessors': [{
+                    'key': 'FFmpegExtractAudio',
+                    'preferredcodec': 'mp3',
+                    'preferredquality': '192',
+                }],
+            }
+        else:
+            ydl_options = {
+                'outtmpl': directory + u'%(title)s.%(ext)s',
+                'ignoreerrors': True,
+                'noplaylist': True,
+                'nooverwrites': True,
+                'writethumbnail': True,
+                # 'restrictfilenames':True,
+                'format': '[height <=? 700]',
+            }
         with YoutubeDL(ydl_options) as ydl:
             qydl = QYoutubeDL(ydl=ydl)
             ydl.add_default_info_extractors()
