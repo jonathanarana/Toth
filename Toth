@@ -56,12 +56,12 @@ class DownloadItem(QtGui.QWidget):
         if total_bytes:
             percentage = 100 * downloaded_bytes / total_bytes
         self.ui.progressBar.setValue(percentage)
-        #if len(name)<1:
-        #    name=pr['filename'].split('/')
-        #    name=name[len(name)-1].split('.')
-        #    name=name[0]
-        #    print(name)
-        #    self.ui.urlLabel.setText(name)
+        if len(name)<1:
+            name=pr['filename'].split('/')
+            name=name[len(name)-1].split('.')
+            name=name[0]
+            print(name)
+            self.ui.urlLabel.setText(name)
 
 
 class MainWindow(QtGui.QMainWindow):
