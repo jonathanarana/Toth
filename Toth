@@ -48,13 +48,20 @@ class DownloadItem(QtGui.QWidget):
         self.ui.setupUi(self)
 
     def onProgressChanged(self, pr):
-        print "pr:", pr
+        #print "pr:", pr
+        name=''
         downloaded_bytes = pr['downloaded_bytes']
         total_bytes = pr['total_bytes']
         percentage = 50
         if total_bytes:
             percentage = 100 * downloaded_bytes / total_bytes
         self.ui.progressBar.setValue(percentage)
+        #if len(name)<1:
+        #    name=pr['filename'].split('/')
+        #    name=name[len(name)-1].split('.')
+        #    name=name[0]
+        #    print(name)
+        #    self.ui.urlLabel.setText(name)
 
 
 class MainWindow(QtGui.QMainWindow):
@@ -104,10 +111,16 @@ class MainWindow(QtGui.QMainWindow):
     @QtCore.pyqtSlot()
     def on_downloadPushButton_clicked(self):
         url = str(self.ui.urlLineEdit.text())
-        directory = str(self.ui.outputDirLineEdit.text())
-        item, download_item = self.add_download_item(url)
-        self.start_download(url, directory, download_item.onProgressChanged)
-        self.ui.urlLineEdit.setText("")
+        if len(url)>0:
+            if url.startswith( 'http' ):
+                directory = str(self.ui.outputDirLineEdit.text())
+                item, download_item = self.add_download_item(url)
+                self.start_download(url, directory, download_item.onProgressChanged)
+            else:
+                print('No es URL')
+            self.ui.urlLineEdit.setText("")
+        else:
+            print('sin url')
     def add_download_item(self, url):
         """
         Adds custom progress bar widget to the downloadListWidget.
@@ -134,7 +147,7 @@ class MainWindow(QtGui.QMainWindow):
             'noplaylist':True,
             'nooverwrites':True,
             'writethumbnail':True,
-            'restrictfilenames':True,
+            #'restrictfilenames':True,
             'format': 'bestaudio/best',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
